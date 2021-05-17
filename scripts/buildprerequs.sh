@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# cleanup the old ish
+# cleanup the old iso
 sudo rm submodules/macadmin-scripts/*.dmg > /dev/null 2>&1 || true
 sudo rm submodules/macadmin-scripts/*.iso > /dev/null 2>&1 || true
-#rm install_bits/*.iso > /dev/null 2>&1 || true
-#rm install_bits/*.shasum > /dev/null 2>&1 || true
+rm install_bits/*.iso > /dev/null 2>&1 || true
+rm install_bits/*.shasum > /dev/null 2>&1 || true
 
 # build the installer dmg
 cd submodules/macadmin-scripts/
@@ -17,6 +17,7 @@ cd ../../
 
 # mount the installer dmg
 hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpoint install_bits/dmg
+#hdiutil attach /Users/skoli/Development/learning/tools/macOS-iso/Install_macOS*.dmg -noverify -mountpoint install_bits/dmg
 
 # Create ios file by calling the following script
 # use this as a git submodule https://github.com/rtrouton/create_macos_vm_install_dmg/blob/master/create_macos_vm_install_dmg.sh
