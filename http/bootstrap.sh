@@ -14,7 +14,7 @@ retrycount=0
 retrylimit=5
 until [ "$retrycount" -ge "$retrylimit" ]
 do
-  /Volumes/Image\ Volume/Install*.app/Contents/Resources/startosinstall --agreetolicense --rebootdelay 90 --installpackage packer.pkg --installpackage setupsshlogin.pkg --volume /Volumes/11vm && break
+  /Volumes/Image\ Volume/Install*.app/Contents/Resources/startosinstall --agreetolicense --rebootdelay 90 --installpackage /var/root/vagrant.pkg --installpackage /var/root/setupsshlogin.pkg --volume /Volumes/11vm && break
    retrycount=$((retrycount+1)) 
    echo "startosinstall failed. retrying in 20sec"
    sleep 20

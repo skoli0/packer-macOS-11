@@ -29,17 +29,17 @@ variable "cpu_count" {
 
 variable "ram_gb" {
   type    = number
-  default = "8"
+  default = "4"
 }
 
 variable "xcode" {
   type    = string
-  default = "install_bits-macos-1121/Xcode_12.4.xip"
+  default = "install_bits/Xcode_12.4.xip"
 }
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits-macos-1121/Command_Line_Tools_for_Xcode_12.4.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.4.dmg"
 }
 
 variable "board_id" {
@@ -75,7 +75,7 @@ variable "boot_key_interval_iso" {
 
 variable "boot_wait_iso" {
   type    = string
-  default = "240s"
+  default = "150s"
 }
 
 variable "boot_keygroup_interval_iso" {
@@ -86,7 +86,7 @@ variable "boot_keygroup_interval_iso" {
 # Full build 
 build {
   name    = "full"
-  sources = ["sources.parallels-iso.macOS_11"]
+  sources = ["sources.parallels-iso.macOS_11-test"]
 
   provisioner "shell" {
     expect_disconnect = true
@@ -123,8 +123,8 @@ build {
 
 }
 
-source "parallels-iso" "macOS_11" {
-  vm_name              = "macOS_11"
+source "parallels-iso" "macOS_11-test" {
+  vm_name              = "macOS_11-test"
   iso_url              = "${var.iso_filename}"
   iso_checksum         = "${var.iso_file_checksum}"
   output_directory     = "output/{{build_name}}"
@@ -143,10 +143,8 @@ source "parallels-iso" "macOS_11" {
     "<enter><wait10s>",
     "<leftSuperOn><f5><leftSuperOff>",
     "<leftCtrlOn><f2><leftCtrlOff>",
-    "u<down><down><down>",
+    "u<down><down><down><down>",
     "<enter>",
-    "<leftSuperOn><f5><leftSuperOff><wait10>",
-    "<leftCtrlOn><f2><leftCtrlOff>",
     "w<down><down>",
     "<enter>",
     "curl -o /var/root/vagrant.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/vagrant.pkg<enter>",
